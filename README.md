@@ -8,11 +8,11 @@
 
 ## Introduction
 
-This repo is a [probot](https://probot.github.io/) app, designed to enhance the GitHub Actions workflow for [actions-workflow-test](https://github.com/jordandarlington/actions-workflow-test).                ; 
+This repo is a [probot](https://probot.github.io/) app, designed to enhance the GitHub Actions workflow for [actions-workflow-test](https://github.com/jordandarlington/actions-workflow-test).
 
 ## Features
 
-- [ ] Issue Comments (Example)
+- [x] Issue Comments (Example)
 - [ ] Label Pull Requests based on base branch
 - [ ] Post Check Failures to Pull Request
 - [ ] Fail Pull Request if Check Fails
