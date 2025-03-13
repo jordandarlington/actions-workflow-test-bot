@@ -15,7 +15,7 @@ export default (app) => {
   });
 
   // label pull request by base branch
-  app.on("pull_request.opened", async (context) => {
+  app.on(["pull_request.opened", "pull_request.reopened"], async (context) => {
     const pr = context.payload.pull_request;
     const baseBranch = pr.base.ref;
     const label = '';
