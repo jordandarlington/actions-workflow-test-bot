@@ -18,7 +18,7 @@ export default (app) => {
   app.on(["pull_request.opened", "pull_request.reopened"], async (context) => {
     const pr = context.payload.pull_request;
     const baseBranch = pr.base.ref;
-    const label = '';
+    let label = '';
 
     if (baseBranch === "main") {
       label = "main";
