@@ -42,12 +42,20 @@ export default (app) => {
     if (checkRun.conclusion === "failure") {
       const summary = checkRun.output.summary || "No summary provided.";
       const text = checkRun.output.text || "No additional details provided.";
-      const comment = context.issue({
-        body: `Check run failed: ${checkRun.name}\n\n**Summary:**\n${summary}\n\n**Details:**\n${text}`,
-      });
 
-      app.log.info(`Adding comment to PR: ${comment.body}`);
-      return context.octokit.issues.createComment(comment);
+      const pullRequests = checkRun.pull_requests;
+      if (pullRequests && pullRequests.length > 0) {
+        const pullRequest = pullRequests[0];
+        const comment = context.repo({
+          issue_number: pullRequest.number,
+          body: `Check run failed: ${checkRun.name}\n\n**Summary:**\n${summary}\n\n**Details:**\n${text}`,
+        });
+
+        app.log.info(`Adding comment to PR: ${comment.body}`);
+        return context.octokit.issues.createComment(comment);
+      } else {
+        app.log.info("No pull requests associated with this check run.");
+      }
     }
   });
 
