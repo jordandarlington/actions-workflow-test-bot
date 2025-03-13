@@ -37,16 +37,19 @@ export default (app) => {
   app.on("check_run.completed", async (context) => {
     const checkRun = context.payload.check_run;
 
+    app.log.info(`Check run completed: ${checkRun.name}`);
+
     if (checkRun.conclusion === "failure") {
       const summary = checkRun.output.summary || "No summary provided.";
       const text = checkRun.output.text || "No additional details provided.";
       const comment = context.issue({
         body: `Check run failed: ${checkRun.name}\n\n**Summary:**\n${summary}\n\n**Details:**\n${text}`,
       });
+
+      app.log.info(`Adding comment to PR: ${comment.body}`);
       return context.octokit.issues.createComment(comment);
     }
-  }
-  );
+  });
 
   // For more information on building apps:
   // https://probot.github.io/docs/
